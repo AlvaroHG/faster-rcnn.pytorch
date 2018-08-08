@@ -124,6 +124,11 @@ if __name__ == '__main__':
       args.imdb_name = "vg_150-50-50_minitrain"
       args.imdbval_name = "vg_150-50-50_minival"
       args.set_cfgs = ['ANCHOR_SCALES', '[4, 8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]']
+  elif args.dataset == "deepequations":
+      args.imdb_name = "deepequations_train"
+      args.imdbval_name = "deepequations_test"
+      args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8]', 'ANCHOR_RATIOS', '[0.1,0.2,0.4]']
+
 
   args.cfg_file = "cfgs/{}_ls.yml".format(args.net) if args.large_scale else "cfgs/{}.yml".format(args.net)
 

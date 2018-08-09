@@ -431,8 +431,6 @@ class deepequations(imdb):
     def evaluate_detections(self, all_boxes, output_dir):
         self._write_voc_results_file(self.classes, all_boxes, output_dir)
         self._do_python_eval(output_dir)
-        if self.config['matlab_eval']:
-            self._do_matlab_eval(output_dir)
         if self.config['cleanup']:
             for cls in self._classes:
                 if cls == '__background__':

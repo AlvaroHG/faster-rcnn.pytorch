@@ -54,8 +54,12 @@ def parse_args():
                       help='number of iterations to display',
                       default=100, type=int)
   parser.add_argument('--checkpoint_interval', dest='checkpoint_interval',
-                      help='number of iterations to display',
+                      help='number of iterations to save checkpoint',
                       default=10000, type=int)
+
+  parser.add_argument('--checkpoint_epochs_interval', dest='checkpoint_epochs_interval',
+                      help='number of epochs to save a checpoint',
+                      default=1, type=int)
 
   parser.add_argument('--save_dir', dest='save_dir',
                       help='directory to save models', default="/srv/share/jyang375/models",
@@ -373,30 +377,47 @@ if __name__ == '__main__':
           for tag, value in info.items():
             logger.scalar_summary(tag, value, step)
 
+        if step % args.checkpoint_interval == 0:
+            save_name = os.path.join(output_dir, 'faster_rcnn_{}_{}_{}.pth'.format(args.session, epoch, step))
+            save_checkpoint({
+                'session': args.session,
+                'epoch': epoch + 1,
+                'model': fasterRCNN.module.state_dict(),
+                'optimizer': optimizer.state_dict(),
+                'pooling_mode': cfg.POOLING_MODE,
+                'class_agnostic': args.class_agnostic,
+            }, save_name)
+            print('save model: {}'.format(save_name))
+
         loss_temp = 0
         start = time.time()
 
+
+
     if args.mGPUs:
-      save_name = os.path.join(output_dir, 'faster_rcnn_{}_{}_{}.pth'.format(args.session, epoch, step))
-      save_checkpoint({
-        'session': args.session,
-        'epoch': epoch + 1,
-        'model': fasterRCNN.module.state_dict(),
-        'optimizer': optimizer.state_dict(),
-        'pooling_mode': cfg.POOLING_MODE,
-        'class_agnostic': args.class_agnostic,
-      }, save_name)
+        if epoch % args.checkpoint_epochs_interval == 0:
+            save_name = os.path.join(output_dir, 'faster_rcnn_{}_{}_{}.pth'.format(args.session, epoch, step))
+            save_checkpoint({
+                'session': args.session,
+                'epoch': epoch + 1,
+                'model': fasterRCNN.module.state_dict(),
+                'optimizer': optimizer.state_dict(),
+                'pooling_mode': cfg.POOLING_MODE,
+                'class_agnostic': args.class_agnostic,
+            }, save_name)
+            print('save model: {}'.format(save_name))
     else:
-      save_name = os.path.join(output_dir, 'faster_rcnn_{}_{}_{}.pth'.format(args.session, epoch, step))
-      save_checkpoint({
-        'session': args.session,
-        'epoch': epoch + 1,
-        'model': fasterRCNN.state_dict(),
-        'optimizer': optimizer.state_dict(),
-        'pooling_mode': cfg.POOLING_MODE,
-        'class_agnostic': args.class_agnostic,
-      }, save_name)
-    print('save model: {}'.format(save_name))
+        if epoch % args.checkpoint_epochs_interval == 0:
+            save_name = os.path.join(output_dir, 'faster_rcnn_{}_{}_{}.pth'.format(args.session, epoch, step))
+            save_checkpoint({
+                'session': args.session,
+                'epoch': epoch + 1,
+                'model': fasterRCNN.state_dict(),
+                'optimizer': optimizer.state_dict(),
+                'pooling_mode': cfg.POOLING_MODE,
+                'class_agnostic': args.class_agnostic,
+            }, save_name)
+            print('save model: {}'.format(save_name))
 
     end = time.time()
     print(end - start)

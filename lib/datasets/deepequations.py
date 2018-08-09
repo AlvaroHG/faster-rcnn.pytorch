@@ -94,6 +94,7 @@ class deepequations(imdb):
             json_data = json.load(f)  # unicode to string
             # for images only in 'train' splits
             image_index = [str(x) for x in json_data[self._image_set]]
+            print("Images in set: {}".format(image_index))
 	    #image_index = image_index[:5]
         #image_index = ['11.png', '49.png', '266.png']
         #image_index = ["5.png", "11.png", "31.png", "33.png", "35.png", "47.png", "49.png", "57.png", "59.png", "60.png"]

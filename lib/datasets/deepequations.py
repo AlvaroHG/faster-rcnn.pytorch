@@ -255,6 +255,8 @@ class deepequations(imdb):
             seg_areas[cnt] = (bb['p_max']['x'] - bb['p_min']['x'] + 1) * (bb['p_max']['y'] - bb['p_min']['y'] + 1)
             cnt += 1
 
+        print("objects: {} ".format(objects))
+        print("boxes: {}".format(boxes))
         overlaps = scipy.sparse.csr_matrix(overlaps)
 
         return {'boxes': boxes,

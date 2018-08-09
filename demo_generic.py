@@ -262,11 +262,14 @@ if __name__ == '__main__':
 
     print('Loaded Photo: {} images.'.format(num_images))
 
+
     while (num_images >= 0):
         total_tic = time.time()
+        print('num images{} '.format(num_images))
         if webcam_num == -1:
             num_images -= 1
 
+        print('webcam num {}'.format(webcam_num))
         # Get image from the webcam
         if webcam_num >= 0:
             if not cap.isOpened():
@@ -276,6 +279,7 @@ if __name__ == '__main__':
         # Load the demo image
         else:
             im_file = os.path.join(args.image_dir, imglist[num_images])
+            print('processing image: {}'.format(im_file))
             # im = cv2.imread(im_file)
             im_in = np.array(imread(im_file))
         if len(im_in.shape) == 2:
@@ -283,8 +287,6 @@ if __name__ == '__main__':
             im_in = np.concatenate((im_in, im_in, im_in), axis=2)
         # rgb -> bgr
         im = im_in[:, :, ::-1]
-
-        print('processing image: {}'.format(num_images))
 
         blobs, im_scales = _get_image_blob(im)
         assert len(im_scales) == 1, "Only single-image batch implemented"
@@ -385,7 +387,9 @@ if __name__ == '__main__':
         if vis and webcam_num == -1:
             # cv2.imshow('test', im2show)
             # cv2.waitKey(0)
+
             result_path = os.path.join(args.image_dir, imglist[num_images][:-4] + "_det.jpg")
+            print('Writing  image with detection: {}'.format(result_path))
             cv2.imwrite(result_path, im2show)
         else:
             im2showRGB = cv2.cvtColor(im2show, cv2.COLOR_BGR2RGB)

@@ -92,7 +92,7 @@ class deepequations(imdb):
         assert os.path.exists(image_set_file), 'Path does not exist: {}'.format(image_set_file)
         image_index = []
         with open(image_set_file, 'r') as f:
-            json_data = json.load(f, object_hook=_byteify)  # unicode to string
+            json_data = json.load(f)  # unicode to string
             # for images only in 'train' splits
             image_index = [str(x) for x in json_data[self._image_set]]
 	    #image_index = image_index[:5]
@@ -196,7 +196,7 @@ class deepequations(imdb):
     def load_annotations(self):
         filename = os.path.join(self._data_path, 'annotations.json')
         with open(filename, 'r') as f:
-            annot_data = json.load(f, object_hook=_byteify)  # unicode to string
+            annot_data = json.load(f)  # unicode to string
         return annot_data
 
     def _load_deepequations_annotation(self, index):

@@ -163,6 +163,18 @@ if __name__ == '__main__':
     # train set
     # -- Note: Use validation set and disable the flipped to enable faster loading.
 
+    args.set_cfgs = args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8]', 'ANCHOR_RATIOS', '[0.3, 0.2, 0.65]',
+                       'MAX_NUM_GT_BOXES', '20']
+
+    if args.cfg_file is not None:
+        cfg_from_file(args.cfg_file)
+    if args.set_cfgs is not None:
+        cfg_from_list(args.set_cfgs)
+
+    print('Using config:')
+    pprint.pprint(cfg)
+    np.random.seed(cfg.RNG_SEED)
+
     input_dir = args.load_dir + "/" + args.net + "/" + args.dataset
     if not os.path.exists(input_dir):
         raise Exception('There is no input directory for loading network from ' + input_dir)

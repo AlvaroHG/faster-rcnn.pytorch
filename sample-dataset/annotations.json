@@ -5,7 +5,7 @@
         "label"
     ],
     "objects": {
-        "resized_black.pdf-dpi300-page0002.png": [
+        "black.pdf-dpi300-page0002_resized.png": [
             {
                 "boundingBox": {
                     "p_min": {
@@ -17,8 +17,9 @@
                         "y": 572
                     }
                 },
-                "class": "equation",
-                "id": "equation"
+                "class": "label_angle",
+                "id": "equation",
+                "text": "Som cray cray equation."
             },
             {
                 "boundingBox": {
@@ -33,7 +34,8 @@
                 },
                 "class": "label",
                 "id": "label_0",
-                "equation_id": "equation_0"
+                "reference": "equation_0",
+                "text": "(1.1)"
             }
         ],
         "resized_black.pdf-dpi300-page0009.png": [
@@ -49,7 +51,8 @@
                     }
                 },
                 "class": "equation",
-                "id": "equation_0"
+                "id": "equation_0",
+                "text": "Som cray cray equation."
             },
             {
                 "boundingBox": {
@@ -64,7 +67,8 @@
                 },
                 "class": "label",
                 "id": "label_0",
-                "equation_id": "equation_0"
+                "reference": "equation_0",
+                "text": "(4.8)"
             },
             {
                 "boundingBox": {
@@ -78,7 +82,8 @@
                     }
                 },
                 "class": "equation",
-                "id": "equation_1"
+                "id": "equation_1",
+                "text": "Som cray cray equation."
             },
             {
                 "boundingBox": {
@@ -93,7 +98,7 @@
                 },
                 "class": "label",
                 "id": "label_1",
-                "equation_id": "equation_1"
+                "text": "(5.1)"
             },
             {
                 "boundingBox": {
@@ -107,7 +112,8 @@
                     }
                 },
                 "class": "equation",
-                "id": "equation_2"
+                "id": "equation_2",
+                "text": "Som cray cray equation."
             },
             {
                 "boundingBox": {
@@ -122,7 +128,7 @@
                 },
                 "class": "label",
                 "id": "label_2",
-                "equation_id": "equation_2"
+                "text": "(5.2)"
             }
         ]
     }

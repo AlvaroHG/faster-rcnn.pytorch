@@ -295,8 +295,8 @@ class deepequations(imdb):
                                        dets[k, 2] + 1, dets[k, 3] + 1))
 
 
+    """
     def _do_python_eval(self, output_dir = 'output'):
-        """"
         annopath = os.path.join(
             self._devkit_path,
             'VOC' + self._year,
@@ -340,13 +340,13 @@ class deepequations(imdb):
         print('Recompute with `./tools/reval.py --matlab ...` for your paper.')
         print('-- Thanks, The Management')
         print('--------------------------------------------------------------')
-        """
+    """
     def _get_vg_results_file_template(self, output_dir):
         filename = 'detections_' + self._image_set + '_{:s}.txt'
         path = os.path.join(output_dir, filename)
         return path
 
-    def _do_python_eval(self, output_dir, pickle=True, eval_attributes = False):
+    def _do_python_eval(self, output_dir, do_pickle=True, eval_attributes = False):
         # We re-use parts of the pascal voc python code for visual genome
         aps = []
         nposs = []
@@ -379,7 +379,7 @@ class deepequations(imdb):
             aps += [ap]
             nposs += [float(npos)]
             print('AP for {} = {:.4f} (npos={:,})'.format(cls, ap, npos))
-            if pickle:
+            if do_pickle:
                 with open(os.path.join(output_dir, cls + '_pr.pkl'), 'wb') as f:
                     pickle.dump({'rec': rec, 'prec': prec, 'ap': ap,
                         'scores': scores, 'npos':npos}, f)

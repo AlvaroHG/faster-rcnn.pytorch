@@ -276,23 +276,24 @@ class deepequations(imdb):
             filename)
         return path
 
-    def _write_voc_results_file(self, all_boxes):
-        for cls_ind, cls in enumerate(self.classes):
+    def _write_voc_results_file(self, classes, all_boxes, output_dir):
+        for cls_ind, cls in enumerate(classes):
             if cls == '__background__':
                 continue
-            print('Writing {} VOC results file'.format(cls))
-            filename = 'output_eval.txt'
+            print('Writing "{}" vg results file'.format(cls))
+            filename = self._get_vg_results_file_template(output_dir).format(cls)
             with open(filename, 'wt') as f:
                 for im_ind, index in enumerate(self.image_index):
                     dets = all_boxes[cls_ind][im_ind]
                     if dets == []:
                         continue
                     # the VOCdevkit expects 1-based indices
-                    for k in range(dets.shape[0]):
+                    for k in xrange(dets.shape[0]):
                         f.write('{:s} {:.3f} {:.1f} {:.1f} {:.1f} {:.1f}\n'.
-                                format(index, dets[k, -1],
+                                format(str(index), dets[k, -1],
                                        dets[k, 0] + 1, dets[k, 1] + 1,
                                        dets[k, 2] + 1, dets[k, 3] + 1))
+                        
 
     def _do_python_eval(self, output_dir = 'output'):
         """"

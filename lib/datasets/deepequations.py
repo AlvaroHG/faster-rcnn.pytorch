@@ -46,7 +46,6 @@ class deepequations(imdb):
         self._data_path = os.path.join(self._devkit_path)
         self._annotations_file_data = self.load_annotations()
         self.annotations_file_data = self._annotations_file_data
-        print(self._annotations_file_data)
         self._classes = tuple(self._annotations_file_data['classes'])
         assert (self._classes[0] == '__background__')  # always index 0
 
@@ -233,6 +232,8 @@ class deepequations(imdb):
 
         annot_data = self._annotations_file_data
 
+        print("index {}".format(index))
+        print(annot_data)
         objects = annot_data["objects"][index]
         num_objs = len(objects)
 

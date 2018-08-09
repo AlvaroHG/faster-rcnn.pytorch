@@ -377,7 +377,7 @@ if __name__ == '__main__':
           for tag, value in info.items():
             logger.scalar_summary(tag, value, step)
 
-        if step % args.checkpoint_interval == 0:
+        if step % args.checkpoint_interval == 0 and step:
             save_name = os.path.join(output_dir, 'faster_rcnn_{}_{}_{}.pth'.format(args.session, epoch, step))
             save_checkpoint({
                 'session': args.session,

@@ -1,0 +1,12 @@
+{
+    "all": [
+        "resized_black.pdf-dpi300-page0002.png",
+        "resized_black.pdf-dpi300-page0009.png"
+    ],
+    "test": [
+        "resized_black.pdf-dpi300-page0002.png"
+    ],
+    "train": [
+        "resized_black.pdf-dpi300-page0009.png"
+    ]
+}

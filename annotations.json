@@ -1,0 +1,135 @@
+{
+    "classes": [
+        "__background__",
+        "equation",
+        "label"
+    ],
+    "objects": {
+        "black.pdf-dpi300-page0002_resized.png": [
+            {
+                "boundingBox": {
+                    "p_max": {
+                        "x": 270,
+                        "y": 548
+                    },
+                    "p_min": {
+                        "x": 505,
+                        "y": 572
+                    }
+                },
+                "class": "label_angle",
+                "id": "equation",
+                "text": "Som cray cray equation."
+            },
+            {
+                "boundingBox": {
+                    "p_max": {
+                        "x": 680,
+                        "y": 548
+                    },
+                    "p_min": {
+                        "x": 719,
+                        "y": 572
+                    }
+                },
+                "class": "label",
+                "id": "label_0",
+                "reference": "equation_0",
+                "text": "(1.1)"
+            }
+        ],
+        "resized_black.pdf-dpi300-page0009.png": [
+            {
+                "boundingBox": {
+                    "p_max": {
+                        "x": 352,
+                        "y": 221
+                    },
+                    "p_min": {
+                        "x": 422,
+                        "y": 240
+                    }
+                },
+                "class": "equation",
+                "id": "equation_0",
+                "text": "Som cray cray equation."
+            },
+            {
+                "boundingBox": {
+                    "p_max": {
+                        "x": 674,
+                        "y": 221
+                    },
+                    "p_min": {
+                        "x": 720,
+                        "y": 240
+                    }
+                },
+                "class": "label",
+                "id": "label_0",
+                "reference": "equation_0",
+                "text": "(4.8)"
+            },
+            {
+                "boundingBox": {
+                    "p_max": {
+                        "x": 208,
+                        "y": 474
+                    },
+                    "p_min": {
+                        "x": 597,
+                        "y": 496
+                    }
+                },
+                "class": "equation",
+                "id": "equation_1",
+                "text": "Som cray cray equation."
+            },
+            {
+                "boundingBox": {
+                    "p_max": {
+                        "x": 683,
+                        "y": 474
+                    },
+                    "p_min": {
+                        "x": 719,
+                        "y": 496
+                    }
+                },
+                "class": "label",
+                "id": "label_1",
+                "text": "(5.1)"
+            },
+            {
+                "boundingBox": {
+                    "p_max": {
+                        "x": 348,
+                        "y": 414
+                    },
+                    "p_min": {
+                        "x": 430,
+                        "y": 732
+                    }
+                },
+                "class": "equation",
+                "id": "equation_2",
+                "text": "Som cray cray equation."
+            },
+            {
+                "boundingBox": {
+                    "p_max": {
+                        "x": 683,
+                        "y": 414
+                    },
+                    "p_min": {
+                        "x": 718,
+                        "y": 732
+                    }
+                },
+                "class": "label",
+                "id": "label_2",
+                "text": "(5.2)"
+            }
+        ]
+    }
+}

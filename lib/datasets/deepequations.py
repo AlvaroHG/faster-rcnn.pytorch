@@ -16,6 +16,7 @@ import subprocess
 from .voc_eval import voc_eval
 from model.utils.config import cfg
 import os.path as osp
+import uuid
 
 import json
 
@@ -354,6 +355,7 @@ class deepequations(imdb):
         status = subprocess.call(cmd, shell=True)
 
     def evaluate_detections(self, all_boxes, output_dir):
+        """
         self._write_voc_results_file(all_boxes)
         self._do_python_eval(output_dir)
         if self.config['matlab_eval']:
@@ -364,6 +366,34 @@ class deepequations(imdb):
                     continue
                 filename = self._get_voc_results_file_template().format(cls)
                 os.remove(filename)
+        """
+        res_file = osp.join(output_dir, ('detections_' +
+                                         self._image_set +
+                                         '_results'))
+        if self.config['use_salt']:
+            res_file += '_{}'.format(str(uuid.uuid4()))
+        res_file += '.json'
+        self._write_coco_results_file(all_boxes, res_file)
+        # Only do evaluation on non-test sets
+        if self._image_set.find('test') == -1:
+            self._do_detection_eval(res_file, output_dir)
+        # Optionally cleanup results json file
+        if self.config['cleanup']:
+            os.remove(res_file)
+
+    def _do_detection_eval(self, res_file, output_dir):
+        ann_type = 'bbox'
+        #coco_dt = self._COCO.loadRes(res_file)
+        #coco_eval = COCOeval(self._COCO, coco_dt)
+        #coco_eval.params.useSegm = (ann_type == 'segm')
+        #coco_eval.evaluate()
+        #coco_eval.accumulate()
+        #self._print_detection_eval_metrics(coco_eval)
+        #eval_file = osp.join(output_dir, 'detection_results.pkl')
+        #with open(eval_file, 'wb') as fid:
+            #pickle.dump(coco_eval, fid, pickle.HIGHEST_PROTOCOL)
+        #print('Wrote COCO eval results to: {}'.format(eval_file))
+        print(res_file)
 
     def competition_mode(self, on):
         if on:

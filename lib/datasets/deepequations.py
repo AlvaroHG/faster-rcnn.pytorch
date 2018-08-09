@@ -234,8 +234,6 @@ class deepequations(imdb):
 
         annot_data = self._annotations_file_data
 
-        print("index {}".format(index))
-        print(annot_data)
         objects = annot_data["objects"][index]
         num_objs = len(objects)
 
@@ -255,8 +253,6 @@ class deepequations(imdb):
             seg_areas[cnt] = (bb['p_max']['x'] - bb['p_min']['x'] + 1) * (bb['p_max']['y'] - bb['p_min']['y'] + 1)
             cnt += 1
 
-        print("objects: {} ".format(objects))
-        print("boxes: {}".format(boxes))
         overlaps = scipy.sparse.csr_matrix(overlaps)
 
         return {'boxes': boxes,

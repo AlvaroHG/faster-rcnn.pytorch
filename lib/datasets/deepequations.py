@@ -288,7 +288,7 @@ class deepequations(imdb):
                     if dets == []:
                         continue
                     # the VOCdevkit expects 1-based indices
-                    for k in xrange(dets.shape[0]):
+                    for k in range(dets.shape[0]):
                         f.write('{:s} {:.3f} {:.1f} {:.1f} {:.1f} {:.1f}\n'.
                                 format(str(index), dets[k, -1],
                                        dets[k, 0] + 1, dets[k, 1] + 1,

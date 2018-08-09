@@ -116,16 +116,16 @@ class imdb(object):
     widths = self._get_widths()
     for i in range(num_images):
       boxes = self.roidb[i]['boxes'].copy()
-      print('i {} name {} '.format(i, self.image_id_at(i)))
-      print(boxes)
+      #print('i {} name {} '.format(i, self.image_id_at(i)))
+      #print(boxes)
       oldx1 = boxes[:, 0].copy()
       oldx2 = boxes[:, 2].copy()
-      print("widths {}, type: {}, oldx1  {} oldx2 {}".format(widths[i], type(widths[i]), oldx1, oldx2))
+      #print("widths {}, type: {}, oldx1  {} oldx2 {}".format(widths[i], type(widths[i]), oldx1, oldx2))
       boxes[:, 0] = widths[i] - oldx2
       boxes[:, 2] = widths[i] - oldx1
 
 
-      print('flipped boxes {}'.format(boxes))
+      #print('flipped boxes {}'.format(boxes))
 
       assert (boxes[:, 2] >= boxes[:, 0]).all()
       entry = {'boxes': boxes,

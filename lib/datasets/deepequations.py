@@ -45,12 +45,12 @@ class deepequations(imdb):
         self._data_path = os.path.join(self._devkit_path)
         self._annotations_file_data = self.load_annotations()
         self.annotations_file_data = self._annotations_file_data
-        assert (self._classes[0] == '__background__')  # always index 0
         self._classes = tuple(self._annotations_file_data['classes'])
         #self._classes = ('__background__', # always index 0
          #                'rightangle',
           #               'circle',
            #              'triangle')
+        assert (self._classes[0] == '__background__')  # always index 0
 
         self._class_to_ind = dict(zip(self.classes, xrange(self.num_classes)))
         self._image_ext = '.png'

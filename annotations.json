@@ -8,11 +8,11 @@
         "black.pdf-dpi300-page0002_resized.png": [
             {
                 "boundingBox": {
-                    "p_max": {
+                    "p_min": {
                         "x": 270,
                         "y": 548
                     },
-                    "p_min": {
+                    "p_max": {
                         "x": 505,
                         "y": 572
                     }
@@ -23,11 +23,11 @@
             },
             {
                 "boundingBox": {
-                    "p_max": {
+                    "p_min": {
                         "x": 680,
                         "y": 548
                     },
-                    "p_min": {
+                    "p_max": {
                         "x": 719,
                         "y": 572
                     }
@@ -41,11 +41,11 @@
         "resized_black.pdf-dpi300-page0009.png": [
             {
                 "boundingBox": {
-                    "p_max": {
+                    "p_min": {
                         "x": 352,
                         "y": 221
                     },
-                    "p_min": {
+                    "p_max": {
                         "x": 422,
                         "y": 240
                     }
@@ -56,11 +56,11 @@
             },
             {
                 "boundingBox": {
-                    "p_max": {
+                    "p_min": {
                         "x": 674,
                         "y": 221
                     },
-                    "p_min": {
+                    "p_max": {
                         "x": 720,
                         "y": 240
                     }
@@ -72,11 +72,11 @@
             },
             {
                 "boundingBox": {
-                    "p_max": {
+                    "p_min": {
                         "x": 208,
                         "y": 474
                     },
-                    "p_min": {
+                    "p_max": {
                         "x": 597,
                         "y": 496
                     }
@@ -87,11 +87,11 @@
             },
             {
                 "boundingBox": {
-                    "p_max": {
+                    "p_min": {
                         "x": 683,
                         "y": 474
                     },
-                    "p_min": {
+                    "p_max": {
                         "x": 719,
                         "y": 496
                     }
@@ -102,11 +102,11 @@
             },
             {
                 "boundingBox": {
-                    "p_max": {
+                    "p_min": {
                         "x": 348,
                         "y": 414
                     },
-                    "p_min": {
+                    "p_max": {
                         "x": 430,
                         "y": 732
                     }
@@ -117,11 +117,11 @@
             },
             {
                 "boundingBox": {
-                    "p_max": {
+                    "p_min": {
                         "x": 683,
                         "y": 414
                     },
-                    "p_min": {
+                    "p_max": {
                         "x": 718,
                         "y": 732
                     }

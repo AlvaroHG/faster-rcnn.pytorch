@@ -15,6 +15,7 @@ import pickle
 import subprocess
 from .voc_eval import voc_eval
 from model.utils.config import cfg
+import os.path as osp
 
 import json
 
@@ -97,6 +98,30 @@ class deepequations(imdb):
         #image_index = ['11.png', '49.png', '266.png']
         #image_index = ["5.png", "11.png", "31.png", "33.png", "35.png", "47.png", "49.png", "57.png", "59.png", "60.png"]
         return image_index
+
+    def image_id_at(self, i):
+        """
+        Return the absolute path to image i in the image sequence.
+        """
+        return self._image_index[i]
+
+    def image_path_at(self, i):
+        """
+        Return the absolute path to image i in the image sequence.
+        """
+        return self.image_path_from_index(self._image_index[i])
+
+    def image_path_from_index(self, index):
+        """
+        Construct an image path from the image's "index" identifier.
+        """
+        # Example image path for index=119993:
+        #   images/train2014/COCO_train2014_000000119993.jpg
+        file_name = index
+        image_path = osp.join(self._data_path, 'images', file_name)
+        assert osp.exists(image_path), \
+            'Path does not exist: {}'.format(image_path)
+        return image_path
 
     def _get_default_path(self):
         """

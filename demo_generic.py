@@ -284,6 +284,8 @@ if __name__ == '__main__':
         # rgb -> bgr
         im = im_in[:, :, ::-1]
 
+        print('processing image: {}'.format(num_images))
+
         blobs, im_scales = _get_image_blob(im)
         assert len(im_scales) == 1, "Only single-image batch implemented"
         im_blob = blobs

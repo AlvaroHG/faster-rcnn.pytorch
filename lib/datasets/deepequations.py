@@ -37,7 +37,7 @@ def _byteify(data, ignore_dicts = False):
 
 class deepequations(imdb):
     def __init__(self, image_set, devkit_path=None, override_image_set=None, data_dir_name='deepequations'):
-        imdb.__init__(self, 'deepequations')
+        imdb.__init__(self, 'deepequations_' + image_set)
         self.data_dir_name = data_dir_name
         self._year = 2017
         self._image_set = image_set
@@ -58,7 +58,7 @@ class deepequations(imdb):
         # Default to roidb handler
         self._roidb_handler = self.selective_search_roidb
         self._year = '2018'  # dummy
-        self._cache_filename = cfg.CACHE_FILENAME
+        # self._cache_filename = cfg.CACHE_FILENAME
         self._dpi = cfg.IMAGE_DPI
 
         print('number of images in training set: {}'.format(len(self._image_index)))
@@ -112,7 +112,7 @@ class deepequations(imdb):
 
         This function loads/saves from/to a cache file to speed up future calls.
         """
-        cache_file = os.path.join(self.cache_path, self._cache_filename + '_gt_roidb.pkl')
+        cache_file = os.path.join(self.cache_path, self.name + '_gt_roidb.pkl')
         if os.path.exists(cache_file):
             with open(cache_file, 'rb') as fid:
                 roidb = cPickle.load(fid)

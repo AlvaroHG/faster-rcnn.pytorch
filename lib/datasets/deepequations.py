@@ -58,8 +58,6 @@ class deepequations(imdb):
         # Default to roidb handler
         self._roidb_handler = self.selective_search_roidb
         self._year = '2018'  # dummy
-        # self._cache_filename = cfg.CACHE_FILENAME
-        self._dpi = cfg.IMAGE_DPI
 
         print('number of images in training set: {}'.format(len(self._image_index)))
 

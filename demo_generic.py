@@ -244,7 +244,8 @@ if __name__ == '__main__':
         cap = cv2.VideoCapture(webcam_num)
         num_images = 0
     else:
-        imglist = os.listdir(args.image_dir)
+        #imglist = os.listdir(args.image_dir)
+        imglist = sizes = [imdb.image_path_at(i) for i in range(imdb.num_images)]
         num_images = len(imglist)
 
     print('Loaded Photo: {} images.'.format(num_images))

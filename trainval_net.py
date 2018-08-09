@@ -186,7 +186,9 @@ if __name__ == '__main__':
   elif args.dataset == "deepequations":
       args.imdb_name = "deepequations_train"
       args.imdbval_name = "deepequations_val"
-      args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8]', 'ANCHOR_RATIOS', '[0.1,0.2,0.4]',
+      #args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8]', 'ANCHOR_RATIOS', '[0.1,0.2,0.4]',
+      #                 'MAX_NUM_GT_BOXES', '20']
+      args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8]', 'ANCHOR_RATIOS', '[0.3, 0.2, 0.65]',
                        'MAX_NUM_GT_BOXES', '20']
 
   args.cfg_file = "cfgs/{}_ls.yml".format(args.net) if args.large_scale else "cfgs/{}.yml".format(args.net)
@@ -378,6 +380,7 @@ if __name__ == '__main__':
             logger.scalar_summary(tag, value, step)
 
         if step % args.checkpoint_interval == 0 and step:
+            print("step {} step mod {}".format(step, step % args.checkpoint_interval))
             save_name = os.path.join(output_dir, 'faster_rcnn_{}_{}_{}.pth'.format(args.session, epoch, step))
             save_checkpoint({
                 'session': args.session,
@@ -387,7 +390,7 @@ if __name__ == '__main__':
                 'pooling_mode': cfg.POOLING_MODE,
                 'class_agnostic': args.class_agnostic,
             }, save_name)
-            print('save model: {}'.format(save_name))
+            print('save model at iteration checkpoint: {}'.format(save_name))
 
         loss_temp = 0
         start = time.time()
@@ -405,7 +408,7 @@ if __name__ == '__main__':
                 'pooling_mode': cfg.POOLING_MODE,
                 'class_agnostic': args.class_agnostic,
             }, save_name)
-            print('save model: {}'.format(save_name))
+            print('save model epoch checkpoint: {}'.format(save_name))
     else:
         if epoch % args.checkpoint_epochs_interval == 0:
             save_name = os.path.join(output_dir, 'faster_rcnn_{}_{}_{}.pth'.format(args.session, epoch, step))
@@ -417,7 +420,7 @@ if __name__ == '__main__':
                 'pooling_mode': cfg.POOLING_MODE,
                 'class_agnostic': args.class_agnostic,
             }, save_name)
-            print('save model: {}'.format(save_name))
+            print('save model at epoch checkpoint: {}'.format(save_name))
 
     end = time.time()
     print(end - start)

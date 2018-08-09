@@ -15,8 +15,8 @@ import pickle
 import subprocess
 from .voc_eval import voc_eval
 from model.utils.config import cfg
+from .vg_eval import vg_eval
 import os.path as osp
-import uuid
 
 import json
 
@@ -295,6 +295,7 @@ class deepequations(imdb):
                                        dets[k, 2] + 1, dets[k, 3] + 1))
 
     def _do_python_eval(self, output_dir = 'output'):
+        """"
         annopath = os.path.join(
             self._devkit_path,
             'VOC' + self._year,
@@ -338,6 +339,78 @@ class deepequations(imdb):
         print('Recompute with `./tools/reval.py --matlab ...` for your paper.')
         print('-- Thanks, The Management')
         print('--------------------------------------------------------------')
+        """
+    def _get_vg_results_file_template(self, output_dir):
+        filename = 'detections_' + self._image_set + '_{:s}.txt'
+        path = os.path.join(output_dir, filename)
+        return path
+
+    def _do_python_eval(self, output_dir, pickle=True, eval_attributes = False):
+        # We re-use parts of the pascal voc python code for visual genome
+        aps = []
+        nposs = []
+        thresh = []
+        # The PASCAL VOC metric changed in 2010
+        use_07_metric = False
+        print('VOC07 metric? ' + ('Yes' if use_07_metric else 'No'))
+        if not os.path.isdir(output_dir):
+            os.mkdir(output_dir)
+        # Load ground truth
+        gt_roidb = self.gt_roidb()
+        if eval_attributes:
+            classes = self._attributes
+        else:
+            classes = self._classes
+        for i, cls in enumerate(classes):
+            if cls == '__background__' or cls == '__no_attribute__':
+                continue
+            filename = self._get_vg_results_file_template(output_dir).format(cls)
+            rec, prec, ap, scores, npos = vg_eval(
+                filename, gt_roidb, self.image_index, i, ovthresh=0.5,
+                use_07_metric=use_07_metric, eval_attributes=eval_attributes)
+
+            # Determine per class detection thresholds that maximise f score
+            if npos > 1:
+                f = np.nan_to_num((prec*rec)/(prec+rec))
+                thresh += [scores[np.argmax(f)]]
+            else:
+                thresh += [0]
+            aps += [ap]
+            nposs += [float(npos)]
+            print('AP for {} = {:.4f} (npos={:,})'.format(cls, ap, npos))
+            if pickle:
+                with open(os.path.join(output_dir, cls + '_pr.pkl'), 'wb') as f:
+                    pickle.dump({'rec': rec, 'prec': prec, 'ap': ap,
+                        'scores': scores, 'npos':npos}, f)
+
+        # Set thresh to mean for classes with poor results
+        thresh = np.array(thresh)
+        avg_thresh = np.mean(thresh[thresh!=0])
+        thresh[thresh==0] = avg_thresh
+        if eval_attributes:
+            filename = 'attribute_thresholds_' + self._image_set + '.txt'
+        else:
+            filename = 'object_thresholds_' + self._image_set + '.txt'
+        path = os.path.join(output_dir, filename)
+        with open(path, 'wt') as f:
+            for i, cls in enumerate(classes[1:]):
+                f.write('{:s} {:.3f}\n'.format(cls, thresh[i]))
+
+        weights = np.array(nposs)
+        weights /= weights.sum()
+        print('Mean AP = {:.4f}'.format(np.mean(aps)))
+        print('Weighted Mean AP = {:.4f}'.format(np.average(aps, weights=weights)))
+        print('Mean Detection Threshold = {:.3f}'.format(avg_thresh))
+        print('~~~~~~~~')
+        print('Results:')
+        for ap,npos in zip(aps,nposs):
+            print('{:.3f}\t{:.3f}'.format(ap,npos))
+        print('{:.3f}'.format(np.mean(aps)))
+        print('~~~~~~~~')
+        print('')
+        print('--------------------------------------------------------------')
+        print('Results computed with the **unofficial** PASCAL VOC Python eval code.')
+        print('--------------------------------------------------------------')
 
     def _do_matlab_eval(self, output_dir='output'):
         print('-----------------------------------------------------')
@@ -355,7 +428,7 @@ class deepequations(imdb):
         status = subprocess.call(cmd, shell=True)
 
     def evaluate_detections(self, all_boxes, output_dir):
-        """
+
         self._write_voc_results_file(all_boxes)
         self._do_python_eval(output_dir)
         if self.config['matlab_eval']:
@@ -366,35 +439,6 @@ class deepequations(imdb):
                     continue
                 filename = self._get_voc_results_file_template().format(cls)
                 os.remove(filename)
-        """
-        res_file = osp.join(output_dir, ('detections_' +
-                                         self._image_set +
-                                         '_results'))
-        if self.config['use_salt']:
-            res_file += '_{}'.format(str(uuid.uuid4()))
-        res_file += '.json'
-        print(all_boxes)
-        #self._write_coco_results_file(all_boxes, res_file)
-        # Only do evaluation on non-test sets
-        if self._image_set.find('test') == -1:
-            self._do_detection_eval(res_file, output_dir)
-        # Optionally cleanup results json file
-        if self.config['cleanup']:
-            os.remove(res_file)
-
-    def _do_detection_eval(self, res_file, output_dir):
-        ann_type = 'bbox'
-        #coco_dt = self._COCO.loadRes(res_file)
-        #coco_eval = COCOeval(self._COCO, coco_dt)
-        #coco_eval.params.useSegm = (ann_type == 'segm')
-        #coco_eval.evaluate()
-        #coco_eval.accumulate()
-        #self._print_detection_eval_metrics(coco_eval)
-        #eval_file = osp.join(output_dir, 'detection_results.pkl')
-        #with open(eval_file, 'wb') as fid:
-            #pickle.dump(coco_eval, fid, pickle.HIGHEST_PROTOCOL)
-        #print('Wrote COCO eval results to: {}'.format(eval_file))
-        print(res_file)
 
     def competition_mode(self, on):
         if on:

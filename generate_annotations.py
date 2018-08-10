@@ -135,7 +135,7 @@ if __name__ == '__main__':
     pprint.pprint(cfg)
 
     cfg.TRAIN.USE_FLIPPED = False
-    imdb = deepequations(args.imdb_name, devkit_path=args.output_dir)
+    imdb = deepequations(args.imdb_name, devkit_path=args.dataset_dir)
     imdb, roidb, ratio_list, ratio_index = combined_roidb_from_imdb(imdb, False)
     imdb.competition_mode(on=True)
 

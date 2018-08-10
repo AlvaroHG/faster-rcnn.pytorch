@@ -359,6 +359,9 @@ if __name__ == '__main__':
                        img_names]  # various dpi
     foreground_classes = imdb.classes[1:]
     print("number of images", len(img_names))
+    save_detections_to_deep_equations_json(os.path.join(output_dir, 'annotations.json'),
+                                           all_results, imdb.classes)
+
     save_dir_pr_curve = os.path.join(output_dir, 'pr_curves')
     compute_pr_curve(config,
                      foreground_classes,
@@ -368,7 +371,6 @@ if __name__ == '__main__':
                      save_dir_pr_curve,
                      args.dpi)
 
-    save_detections_to_deep_equations_json(os.path.join(output_dir, 'annotations.json'), all_results, imdb.classes)
 
     # token-wise eval
     print('-- token-wise evaluation --')

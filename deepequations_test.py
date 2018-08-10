@@ -346,10 +346,10 @@ if __name__ == '__main__':
     for i in range(num_images):
         image_name = imdb.image_id_at(i)
         image_filename = imdb.image_path_at(i)
-        prediction_boxes = []
+        bb_by_class = {}
         for j in xrange(1, imdb.num_classes):
-            prediction_boxes.append(all_boxes[j][i])
-        all_results[image_name] = prediction_boxes
+            bb_by_class[imdb.classes[j]] = all_boxes[j][i]
+        all_results[image_name] = bb_by_class
 
     iou_thresholds = {class_name: [0.1, 0.2, 0.5, 0.7, 0.9] for class_name in imdb.classes[1:]}
     data_path = imdb._data_path

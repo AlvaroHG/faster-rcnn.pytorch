@@ -21,7 +21,7 @@ def convert_to_my_format_from_predicted(predicted_bbs):
 def dets_to_bb(dets):
     output_bbs = []
     for k in range(dets.shape[0]):
-        output_bbs.append([dets[k, 0] + 1, dets[k, 1] + 1, dets[k, 2] + 1, dets[k, 3] + 1])
+        output_bbs.append([dets[k, 0] + 1, dets[k, 1] + 1, dets[k, 2] + 1, dets[k, 3] + 1, dets[k, -1]])
     return output_bbs
 
 
@@ -168,7 +168,9 @@ def eval_pr_iou(testset, gnds, predicts, bb_type, dpi_val, iou_thres=0.01):
         annot = gnds[test_sample]
         annot_eval_format = convert_gnd_to_eval_format(annot)
         # predicts_eval_format = convert_yolo_to_eval_format(predicts[test_sample])
-        predicts_eval_format = dets_to_bb(predicts[test_sample])
+        #predicts_eval_format = dets_to_bb(predicts[test_sample])
+
+        predicts_eval_format = predicts[test_sample]
 
         # sort the predicted BB with its confidences (high to low)
         # print("predicts_eval ", predicts_eval_format)

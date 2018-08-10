@@ -415,7 +415,8 @@ if __name__ == '__main__':
     # aggregate all results for quantitative evaluations
     all_results = {}
 
-    for i in range(num_images):
+
+    for i in range(len(imglist)):
         image_name = imdb.image_id_at(i)
         image_filename = imdb.image_path_at(i)
         bb_by_class = {}

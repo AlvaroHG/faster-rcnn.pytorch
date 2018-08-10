@@ -221,12 +221,13 @@ if __name__ == '__main__':
     run_feedforward = True
     if os.path.exists(det_file):
         name = input(
-            "\nPicke file with detections '{}' already exists. Do you want to use it?\ny / n:\n".format(
+            "\nPickle file with detections '{}' already exists. Do you want to use it?\ny / n:\n".format(
                 det_file))
         if re.match("[y]|(yes)$", name, re.IGNORECASE):
             run_feedforward = False
             with open(det_file, 'rb') as f:
                 all_boxes = pickle.load(f)
+                print(all_boxes)
 
 
     fasterRCNN.eval()

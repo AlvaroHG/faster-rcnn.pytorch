@@ -278,9 +278,9 @@ if __name__ == '__main__':
         total_tic = time.time()
         print('num images{} '.format(num_images))
 
+        i = num_images-1
 
-
-        im_file = imglist[num_images-1]
+        im_file = imglist[i]
         print('processing image: {}'.format(im_file))
         # im = cv2.imread(im_file)
         im_in = np.array(imread(im_file))

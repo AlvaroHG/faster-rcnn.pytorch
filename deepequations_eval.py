@@ -15,7 +15,7 @@ def save_detections_to_deep_equations_json(output_filename, all_detections, clas
     for image_id, bb_by_class in all_detections.items():
         bounding_boxes = []
         i = 0
-        for class_name, detections in bb_by_class.items()
+        for class_name, detections in bb_by_class.items():
             bb_objects = [{
                 'boundingBox': {
                     'p_min': {

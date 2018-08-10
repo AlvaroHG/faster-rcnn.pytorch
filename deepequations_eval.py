@@ -19,12 +19,12 @@ def save_detections_to_deep_equations_json(output_filename, all_detections, clas
             bb_objects = [{
                 'boundingBox': {
                     'p_min': {
-                        'x': det[0],
-                        'y': det[1]
+                        'x': float(det[0]),
+                        'y': float(det[1])
                     },
                     'p_max': {
-                        'x': det[2],
-                        'y': det[3]
+                        'x': float(det[2]),
+                        'y': float(det[3])
                     }
 
                 },

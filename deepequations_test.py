@@ -114,8 +114,8 @@ if __name__ == '__main__':
     if torch.cuda.is_available() and not args.cuda:
         print("WARNING: You have a CUDA device, so you should probably run with --cuda")
 
-
-    args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8]', 'ANCHOR_RATIOS', '[0.1,0.2,0.4]']
+    args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8, 16]', 'ANCHOR_RATIOS', '[0.1, 0.2, 0.4, 1]',
+                     'MAX_NUM_GT_BOXES', '20']
 
     args.cfg_file = "cfgs/{}_ls.yml".format(
         args.net) if args.large_scale else "cfgs/{}.yml".format(args.net)

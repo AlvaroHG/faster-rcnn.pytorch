@@ -451,7 +451,7 @@ def compute_tokenwise_eval(devkit_dir, test_set, classnames, all_results, ground
 
         # compute exact match
         are_exactly_correct = is_exactly_correct(predicted_tokens, classnames)
-        for (key, is_correct) in are_exactly_correct.iteritems():
+        for (key, is_correct) in are_exactly_correct.items():
             accuracy_matching_full_exact[key] += 1.0 / float(len(test_set)) if is_correct else 0.0
 
         # print the stats

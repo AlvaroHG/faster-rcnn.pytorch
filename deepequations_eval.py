@@ -37,8 +37,9 @@ def save_detections_to_deep_equations_json(output_filename, all_detections, clas
 
     json_out['objects'] = objects
 
-    with open(output_filename, 'w') as f:
-        json.dump(json_out, f, indent=4)
+    dump_json_object(json_out, output_filename)
+    #with open(output_filename, 'w') as f:
+     #   json.dump(json_out, f, indent=4)
 
 
 def convert_to_my_format_from_predicted(predicted_bbs):

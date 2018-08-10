@@ -234,6 +234,7 @@ def eval_pr_iou(testset, gnds, predicts, bb_type, dpi_val, iou_thres=0.01):
 
 
 def visualize_pr(recall, prec, title_val, save_path):
+    """
     import matplotlib
     if not save_path == None:
         matplotlib.use('Agg')
@@ -247,6 +248,7 @@ def visualize_pr(recall, prec, title_val, save_path):
     else:
         plt.savefig(save_path)
     plt.close()
+    """
 
 
 def visualize_token(img, tokens, save_or_show='show', display_name_or_save_fn='visualize'):

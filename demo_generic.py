@@ -58,6 +58,9 @@ def parse_args():
     parser.add_argument('--net', dest='net',
                         help='vgg16, res50, res101, res152',
                         default='res101', type=str)
+    parser.add_argument('--score_threshold', dest='score_threshold',
+                        default=0.5, type=float,
+                        help='score threshold for which detections are taken into account.')
     parser.add_argument('--set', dest='set_cfgs',
                         help='set config keys', default=None,
                         nargs=argparse.REMAINDER)
@@ -375,7 +378,7 @@ if __name__ == '__main__':
                 cls_dets = cls_dets[keep.view(-1).long()]
                 if vis:
                     im2show = vis_detections(im2show, classes[j], cls_dets.cpu().numpy(),
-                                             0.5)
+                                             args.score_threshold)
 
         misc_toc = time.time()
         nms_time = misc_toc - misc_tic

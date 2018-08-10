@@ -198,3 +198,7 @@ caffe2.egg-info
 # Atom/Watchman required file
 .watchmanconfig
 
+# Detections
+detections/
+detections_test/
+detections_gold/

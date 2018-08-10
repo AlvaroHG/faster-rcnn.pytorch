@@ -272,6 +272,7 @@ if __name__ == '__main__':
     num_images = len(imglist)
     empty_array = np.transpose(np.array([[], [], [], [], []]), (1, 0))
 
+    classes = imdb.classes
 
     while (num_images >= 0):
         total_tic = time.time()

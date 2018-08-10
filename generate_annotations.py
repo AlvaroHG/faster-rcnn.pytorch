@@ -280,6 +280,8 @@ if __name__ == '__main__':
 
         i = num_images-1
 
+        num_images -= 1
+
         im_file = imglist[i]
         print('processing image: {}'.format(im_file))
         # im = cv2.imread(im_file)

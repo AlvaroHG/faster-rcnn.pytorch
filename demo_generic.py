@@ -163,11 +163,18 @@ if __name__ == '__main__':
     pprint.pprint(cfg)
     np.random.seed(cfg.RNG_SEED)
 
+    if not os.path.exists(args.image_dir):
+        os.makedirs(args.image_dir)
     # train set
     # -- Note: Use validation set and disable the flipped to enable faster loading.
-
-    args.set_cfgs = args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8]', 'ANCHOR_RATIOS', '[0.3, 0.2, 0.65]',
-                       'MAX_NUM_GT_BOXES', '20']
+    # always index
+    # args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8]', 'ANCHOR_RATIOS', '[0.1,0.2,0.4]',
+    #                 'MAX_NUM_GT_BOXES', '20']
+    # args.set_cfgs = ['ANCHOR_SCALES', '[2, 13.3125, 16, 18.875, 32]', 'ANCHOR_RATIOS', '[0.0977, 0.132, 0.2, 0.2219, 0.6562]', 'MAX_NUM_GT_BOXES', '30']
+    args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8, 16]', 'ANCHOR_RATIOS', '[0.1, 0.2, 0.4, 1]',
+                     'MAX_NUM_GT_BOXES', '20']
+    # args.set_cfgs = args.set_cfgs = ['ANCHOR_SCALES', '[1, 2, 4, 8]', 'ANCHOR_RATIOS', '[0.3, 0.2, 0.65]',
+    #                   'MAX_NUM_GT_BOXES', '20']
 
     if args.cfg_file is not None:
         cfg_from_file(args.cfg_file)

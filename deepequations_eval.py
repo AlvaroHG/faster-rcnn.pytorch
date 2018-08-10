@@ -380,7 +380,6 @@ def compute_tokenwise_eval(devkit_dir, test_set, classnames, all_results, ground
         gnd_tokens = ground_truths[test_sample]
         img_fn = test_sample
         predicted_bbs = all_results[img_fn]
-        print("all results at {} : {}".format(img_fn, predicted_bbs))
         #predicted_bbs = convert_to_my_format_from_predicted(predicted_bbs_yolo)
         img_path_fn = os.path.join(devkit_dir, 'images', img_fn)
         img = cv2.imread(img_path_fn)

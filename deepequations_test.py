@@ -227,7 +227,6 @@ if __name__ == '__main__':
             run_feedforward = False
             with open(det_file, 'rb') as f:
                 all_boxes = pickle.load(f)
-                print(all_boxes)
 
 
     fasterRCNN.eval()

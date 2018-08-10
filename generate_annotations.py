@@ -99,6 +99,9 @@ def parse_args():
     parser.add_argument('--output_dir', dest='output_dir',
                         help='output dir for annotations',
                         default='.', type=str)
+    parser.add_argument('--output_filename', dest='output_filename',
+                        help='output filename for annotations',
+                        default='.', type=str)
     args = parser.parse_args()
     return args
 
@@ -212,7 +215,7 @@ if __name__ == '__main__':
     all_boxes = [[[] for _ in xrange(num_images)]
                  for _ in xrange(imdb.num_classes)]
 
-    output_dir = get_output_dir(imdb, save_name)
+    #output_dir = get_output_dir(imdb, save_name)
     dataset = roibatchLoader(roidb, ratio_list, ratio_index, 1, \
                              imdb.num_classes, training=False, normalize=False)
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=1,
@@ -328,7 +331,7 @@ if __name__ == '__main__':
 
     img_names = [imdb.image_id_at(i) for i in range(imdb.num_images)]
     img_filenames = sizes = [imdb.image_path_at(i) for i in range(imdb.num_images)]
-    result_cache_dir = det_file = os.path.join(output_dir, 'detections.pkl')
+    result_cache_dir = det_file = os.path.join(args.output_dir, 'detections.pkl')
     # aggregate all results for quantitative evaluations
     all_results = {}
 
@@ -346,7 +349,7 @@ if __name__ == '__main__':
                        img_names]  # various dpi
     foreground_classes = imdb.classes[1:]
     print("number of images", len(img_names))
-    save_detections_to_deep_equations_json(os.path.join(output_dir, 'annotations.json'),
+    save_detections_to_deep_equations_json(os.path.join(args.output_dir, args.output_filename),
                                            all_results, imdb.classes)
     end = time.time()
     print("test time: %0.4fs" % (end - start))

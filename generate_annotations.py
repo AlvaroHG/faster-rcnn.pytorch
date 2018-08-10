@@ -416,6 +416,7 @@ if __name__ == '__main__':
     all_results = {}
 
 
+    print("All boxes: {} ".format(all_boxes))
     for i in range(len(imglist)):
         image_name = imdb.image_id_at(i)
         image_filename = imdb.image_path_at(i)

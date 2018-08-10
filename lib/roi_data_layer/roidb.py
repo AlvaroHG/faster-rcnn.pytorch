@@ -130,3 +130,41 @@ def combined_roidb(imdb_names, training=True):
   ratio_list, ratio_index = rank_roidb_ratio(roidb)
 
   return imdb, roidb, ratio_list, ratio_index
+
+
+def combined_roidb_from_imdb(imdb, training=True):
+  """
+  Combine multiple roidbs
+  """
+
+  def get_training_roidb(imdb):
+    """Returns a roidb (Region of Interest database) for use in training."""
+    if cfg.TRAIN.USE_FLIPPED:
+      print('Appending horizontally-flipped training examples...')
+      imdb.append_flipped_images()
+      print('done')
+
+    print('Preparing training data...')
+
+    prepare_roidb(imdb)
+    # ratio_index = rank_roidb_ratio(imdb)
+    print('done')
+
+    return imdb.roidb
+
+  def get_roidb():
+    print('Loaded dataset `{:s}` for training'.format(imdb.name))
+    imdb.set_proposal_method(cfg.TRAIN.PROPOSAL_METHOD)
+    print('Set proposal method: {:s}'.format(cfg.TRAIN.PROPOSAL_METHOD))
+    roidb = get_training_roidb(imdb)
+    return roidb
+
+  roidbs = get_roidb()
+  roidb = roidbs[0]
+
+  if training:
+    roidb = filter_roidb(roidb)
+
+  ratio_list, ratio_index = rank_roidb_ratio(roidb)
+
+  return imdb, roidb, ratio_list, ratio_index

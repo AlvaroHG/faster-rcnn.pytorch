@@ -176,10 +176,10 @@ if __name__ == '__main__':
 
     cfg.TRAIN.USE_FLIPPED = False
     imdb = deepequations(args.imdb_name, devkit_path=args.dataset_dir)
-    imdb, roidb, ratio_list, ratio_index = combined_roidb_from_imdb(imdb, False)
-    imdb.competition_mode(on=True)
+    #imdb, roidb, ratio_list, ratio_index = combined_roidb_from_imdb(imdb, False)
+    #imdb.competition_mode(on=True)
 
-    print('{:d} roidb entries'.format(len(roidb)))
+    #print('{:d} roidb entries'.format(len(roidb)))
 
     input_dir = args.load_dir + "/" + args.net + "/" + args.dataset
     if not os.path.exists(input_dir):

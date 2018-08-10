@@ -100,8 +100,7 @@ def parse_args():
                         help='output dir for annotations',
                         default='.', type=str)
     parser.add_argument('--output_filename', dest='output_filename',
-                        help='output filename for annotations',
-                        default='.', type=str)
+                        help='output filename for annotations', type=str)
     args = parser.parse_args()
     return args
 

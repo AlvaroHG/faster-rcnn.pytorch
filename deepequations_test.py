@@ -368,6 +368,8 @@ if __name__ == '__main__':
                      save_dir_pr_curve,
                      args.dpi)
 
+    save_detections_to_deep_equations_json()
+
     # token-wise eval
     print('-- token-wise evaluation --')
     predicted_token_dir = os.path.join(output_dir, 'predicted_token')

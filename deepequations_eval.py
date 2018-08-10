@@ -7,6 +7,40 @@ import copy
 import cv2
 
 
+def save_detections_to_deep_equations_json(output_filename, all_detections, classes):
+    objects = {}
+    json_out = {
+        'classes': classes
+    }
+    for image_id, bb_by_class in all_detections.items():
+        bounding_boxes = []
+        i = 0
+        for class_name, detections in bb_by_class.items()
+            bb_objects = [{
+                'boundingBox': {
+                    'p_min': {
+                        'x': det[0],
+                        'y': det[1]
+                    },
+                    'p_max': {
+                        'x': det[2],
+                        'y': det[3]
+                    }
+
+                },
+                'class': class_name,
+                'id': '{}_{}'.format(class_name, i)
+            } for det in detections]
+            i += 1
+            bounding_boxes.extend(bb_objects)
+        objects[image_id] = bounding_boxes
+
+    json_out['objects'] = objects
+
+    with open(output_filename, 'w') as f:
+        json.dump(json_out, f, indent=4)
+
+
 def convert_to_my_format_from_predicted(predicted_bbs):
     """convert (ctr_x, ctr_y, w, h) -> (x1, y1, x2, y2)"""
     output_bb = []
@@ -256,6 +290,7 @@ def visualize_token(img, tokens, save_or_show='show', display_name_or_save_fn='v
 
     for token in tokens:
         bb = token['bb']
+        print('token bb {}'.format(bb))
         cv2.rectangle(img, (int(bb[0]), int(bb[1])), (int(bb[2]), int(bb[3])),
                       color=cmap[token['label']], thickness=1)
 
@@ -470,6 +505,7 @@ def compute_tokenwise_eval(devkit_dir, test_set, classnames, all_results, ground
         to_draw_predicted = []
         for rec in predicted_bbs:
             classname = rec[0] if rec[0] != '__background__' else 'others'
+            print('rec {} '.format(rec))
             to_draw_predicted.append({'label': classname, 'bb': rec[1:5]})
             # draw gnd and predict tokens to the paper image
         # if 'title' in accuracy_per_label:

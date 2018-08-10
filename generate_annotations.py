@@ -278,7 +278,7 @@ if __name__ == '__main__':
         print('num images{} '.format(num_images))
 
 
-        im_file = os.path.join(args.image_dir, imglist[num_images])
+        im_file = imglist[num_images]
         print('processing image: {}'.format(im_file))
         # im = cv2.imread(im_file)
         im_in = np.array(imread(im_file))

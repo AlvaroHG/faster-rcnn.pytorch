@@ -96,7 +96,7 @@ def parse_args():
     parser.add_argument('--dataset_dir', dest='dataset_dir',
                         help='dev kit path to construct the imdb, where images annotations.json and split.json should be',
                         type=str)
-    parser.add_argument('--output_dir', dest='dataset_dir',
+    parser.add_argument('--output_dir', dest='output_dir',
                         help='output dir for annotations',
                         default='.', type=str)
     args = parser.parse_args()

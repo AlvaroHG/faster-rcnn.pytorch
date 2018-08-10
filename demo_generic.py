@@ -257,6 +257,7 @@ if __name__ == '__main__':
         num_images = 0
     else:
         #imglist = os.listdir(args.image_dir)
+        img_names = [imdb.image_id_at(i) for i in range(imdb.num_images)]
         imglist = sizes = [imdb.image_path_at(i) for i in range(imdb.num_images)]
         num_images = len(imglist)
 
@@ -388,7 +389,7 @@ if __name__ == '__main__':
             # cv2.imshow('test', im2show)
             # cv2.waitKey(0)
 
-            result_path = os.path.join(args.image_dir, imglist[num_images][:-4] + "_det.jpg")
+            result_path = os.path.join(args.image_dir, img_names[num_images][:-4] + "_det.png")
             print('Writing  image with detection: {}'.format(result_path))
             cv2.imwrite(result_path, im2show)
         else:

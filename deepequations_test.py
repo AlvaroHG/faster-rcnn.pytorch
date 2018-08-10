@@ -32,7 +32,7 @@ from model.faster_rcnn.vgg16 import vgg16
 from model.faster_rcnn.resnet import resnet
 import re
 
-from deepequations_eval import compute_pr_curve, compute_tokenwise_eval
+from deepequations_eval import compute_pr_curve, compute_tokenwise_eval, save_detections_to_deep_equations_json
 
 import pdb
 
@@ -368,7 +368,7 @@ if __name__ == '__main__':
                      save_dir_pr_curve,
                      args.dpi)
 
-    save_detections_to_deep_equations_json()
+    save_detections_to_deep_equations_json(os.path.join(output_dir, 'annotations.json'), all_results, imdb.classes)
 
     # token-wise eval
     print('-- token-wise evaluation --')

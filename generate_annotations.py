@@ -383,7 +383,16 @@ if __name__ == '__main__':
             else:
                 all_boxes[j][i] = empty_array
 
-        
+        # Limit to max_per_image detections *over all classes*
+        if max_per_image > 0:
+            image_scores = np.hstack([all_boxes[j][i][:, -1]
+                                      for j in xrange(1, imdb.num_classes)])
+            if len(image_scores) > max_per_image:
+                image_thresh = np.sort(image_scores)[-max_per_image]
+                for j in xrange(1, imdb.num_classes):
+                    keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
+                    all_boxes[j][i] = all_boxes[j][i][keep, :]
+
             misc_toc = time.time()
             nms_time = misc_toc - misc_tic
 
@@ -413,7 +422,7 @@ if __name__ == '__main__':
         image_filename = imdb.image_path_at(i)
         bb_by_class = {}
         for j in xrange(1, imdb.num_classes):
-            bb_by_class[imdb.classes[j]] = all_boxes[j][i]
+            bb_by_class[imdb.classes[j]] = [box for box in all_boxes[j][i] if box[-1] > 0.8]
         all_results[image_name] = bb_by_class
 
     data_path = imdb._data_path
